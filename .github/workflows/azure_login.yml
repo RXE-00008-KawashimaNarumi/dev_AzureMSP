@@ -9,7 +9,7 @@ permissions:
 jobs: 
   build-and-deploy:
     runs-on: ubuntu-latest
-    enviroment:
+    env:
       name: dev
     steps:
       - name: Azure login
