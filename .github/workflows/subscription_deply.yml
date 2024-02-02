@@ -1,4 +1,4 @@
-name: subscription deply
+name: subscription_deply
 
 on:
     workflow_dispatch:
