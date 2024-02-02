@@ -30,14 +30,14 @@ jobs:
 
             - name: 'Terraform init'
               run: terraform init -backend-config=key=${TF_VAR_id}.tfstate
-              working-directory: terraform/azure/develop/subscription
+              working-directory: terraform/azure/enviroments/develop/subscription
 
             - name: 'Terraform plan'
               run: terraform plan -lock=false
-              working-directory: terraform/azure/develop/subscription
+              working-directory: terraform/azure/enviroments/develop/subscription
 
             - name: 'Terraform apply'
               run: terraform apply -auto-approve -lock=false
-              working-directory: terraform/azure/develop/subscription
+              working-directory: terraform/azure/enviroments/develop/subscription
 
         
