@@ -6,10 +6,10 @@ variable "display_name" {
   description = "support acount name on azure console display"
 }
 
-variable "mail" {
-  description = "support acount mail address"
-}
-
 variable "password" {
   description = "support acount password"
+}
+
+variable "usage_location" {
+  description = "usage location"
 }
