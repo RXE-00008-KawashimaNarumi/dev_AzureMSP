@@ -11,7 +11,6 @@ jobs:
             ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
             ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
             ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            TF_VAR_location: Japan East
 
         runs-on: ubuntu-latest
 
@@ -29,7 +28,7 @@ jobs:
                 terraform_version: 1.7.0
 
             - name: 'Terraform init'
-              run: terraform init -backend-config=key=${TF_VAR_id}.tfstate
+              run: terraform init -backend-config=key=subscription.tfstate
               working-directory: terraform/azure/enviroments/develop/subscription
 
             - name: 'Terraform plan'
