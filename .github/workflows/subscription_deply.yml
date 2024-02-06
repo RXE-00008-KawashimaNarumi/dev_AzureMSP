@@ -35,8 +35,8 @@ jobs:
               run: terraform plan -lock=false
               working-directory: terraform/azure/enviroments/develop/subscription
 
-            - name: 'Terraform apply'
-              run: terraform apply -auto-approve -lock=false
-              working-directory: terraform/azure/enviroments/develop/subscription
+#            - name: 'Terraform apply'
+#              run: terraform apply -auto-approve -lock=false
+#              working-directory: terraform/azure/enviroments/develop/subscription
 
         
