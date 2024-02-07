@@ -1,3 +1,3 @@
 output "name" {
-  value     = azurerm_resource_group.tf-plan.name
+  value     = azurerm_resource_group.rg.name
 }

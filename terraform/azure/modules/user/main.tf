@@ -3,7 +3,7 @@
 #    display_name = var.display_name
 #}
 
-resource "azurerm_resource_group" "tf-plan" {
+resource "azurerm_resource_group" "rg" {
   name     = var.name
   location = var.location
 }
