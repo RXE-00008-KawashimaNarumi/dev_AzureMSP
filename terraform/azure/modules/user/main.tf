@@ -4,6 +4,6 @@
 #}
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-hoge"
+  name     = var.name
   location = var.location
 }
