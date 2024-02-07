@@ -1,10 +1,10 @@
 module "rg" {
-source = "../modules/resource_group"
+source = "terraform/azure/modules/resource_group"
 name = "rg-${var.id}"
 location = var.location
 }
 module "aks" {
-source = "../modules/kubernetes"
+source = "terraform/azure/modules/kubernetes"
 # common kubernetes config
 location = var.location
 resource_group_name = module.rg.name
@@ -26,14 +26,4 @@ second_node_pool_vm_size = "Standard_DS2_v2"
 second_node_pool_max_count = 5
 second_node_pool_min_count = 1
 depends_on = [module.rg.rg]
-}
-// variable.tf
-variable "id" {}
-variable "location" {}
-variable "kubernetes_version" {
-    default = null
-}
-variable "second_node_pool_enabled" {
-    type = bool
-    default = false
 }
