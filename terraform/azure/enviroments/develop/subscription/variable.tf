@@ -1,4 +1,2 @@
-#variable "user_principal_name" {}
-#variable "display_name" {}
-variable "name" {}
-variable "location" {}
+variable "user_principal_name" {}
+variable "display_name" {}
