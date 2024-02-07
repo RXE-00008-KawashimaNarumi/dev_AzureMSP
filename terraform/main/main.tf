@@ -1,10 +1,10 @@
 module "rg" {
-source = "terraform/azure/modules/resource_group"
+source = "../azure/modules/resource_group"
 name = "rg-${var.id}"
 location = var.location
 }
 module "aks" {
-source = "terraform/azure/modules/kubernetes"
+source = "../azure/modules/kubernetes"
 # common kubernetes config
 location = var.location
 resource_group_name = module.rg.name
