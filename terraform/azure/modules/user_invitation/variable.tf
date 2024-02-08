@@ -14,3 +14,7 @@ variable "redirect_url" {
 variable "user_type" {
   description = "invitate user type"
 }
+
+variable "additional_recipients" {
+  description = "send email address"
+}
