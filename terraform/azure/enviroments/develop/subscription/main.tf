@@ -7,7 +7,7 @@ module "create_supprt_acount" {
 
 
 module "user_invitation" {
-  source = "../../../modules/user"
+  source = "../../../modules/user_invitation"
   user_display_name = "${var.user_display_name}"
   user_email_address = "${var.user_email_address}"
   redirect_url = "${var.redirect_url}"
