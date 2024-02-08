@@ -3,3 +3,13 @@ resource "azuread_user" "create_supprt_acount" {
     display_name = var.display_name
     password = var.password
 }
+
+resource "azuread_invitation" "user_invitation" {
+  user_display_name = var.user_principal_name
+  user_email_address = var.user_email_address
+  redirect_url = var.redirect_url
+
+  massage {
+    body = "Hey! Guys! Let's join!!"
+  }
+}
