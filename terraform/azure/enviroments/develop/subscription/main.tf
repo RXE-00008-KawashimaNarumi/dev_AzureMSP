@@ -11,3 +11,4 @@ module "user_invitation" {
   user_email_address = "${var.user_email_address}"
   redirect_url = "${var.redirect_url}"
 }
+

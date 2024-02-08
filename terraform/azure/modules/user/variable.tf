@@ -23,3 +23,7 @@ variable "user_email_address" {
 variable "redirect_url" {
   description = "invitate redirect URL"
 }
+
+variable "user_type" {
+  description = "invitate user type"
+}
