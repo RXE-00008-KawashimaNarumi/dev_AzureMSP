@@ -1,0 +1,27 @@
+name: azure subscription rename
+on:
+    workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs: 
+  build-and-deply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          creds: ${{secrets.ARM_CLIENT_SECRET}}
+  
+      - name: Azure subscription rename
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: "latest"
+          inlineScript: |
+            Rename-AzSubscription -id ${{ secrets.ARM_SUBSCRIPTION_ID }} -SubscriptionName hogehoge
+            
+
