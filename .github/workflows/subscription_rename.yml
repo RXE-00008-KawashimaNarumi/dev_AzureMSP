@@ -15,6 +15,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{secrets.ARM_CREDENTIAL_JSON}}
+          enable-AzPSSession: true
   
       - name: Azure subscription rename
         uses: azure/powershell@v1
