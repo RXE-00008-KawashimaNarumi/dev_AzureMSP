@@ -22,7 +22,7 @@ jobs:
         with:
           azPSVersion: "11.3.1"
           inlineScript: |
-           Install-Module Az.Subscription
+           Install-Module -Force Az.Subscription
 
       - name: Rename Subscription
         uses: azure/powershell@v1
