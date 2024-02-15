@@ -15,3 +15,16 @@ module "user_invitation" {
   additional_recipients = "${var.additional_recipients}"
 }
 
+data "azurerm_subscription" "import_subscription" {
+    subscription_id = "${var.subscription_id}"
+}
+
+data "azuread_user" "import_user" {
+    user_principal_name = "${var.role_user_principal_name}"
+}
+
+module "role_assignment" {
+  source = "../../../modules/role_assignment"
+  role_definition_name = "${var.role_definition_name}"
+}
+
