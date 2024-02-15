@@ -14,8 +14,7 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          creds: ${{secrets.ARM_CLIENT_SECRET}}
+          creds: ${{secrets.ARM_CREDENTIAL_JSON}}
   
       - name: Azure subscription rename
         uses: azure/powershell@v1
