@@ -24,7 +24,7 @@ jobs:
           inlineScript: |
            Install-Module Az.Subscription
 
-      - name: Install Az Subscription
+      - name: Rename Subscription
         uses: azure/powershell@v1
         with:
           azPSVersion: "latest"
