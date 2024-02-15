@@ -17,11 +17,17 @@ jobs:
           creds: ${{secrets.ARM_CREDENTIAL_JSON}}
           enable-AzPSSession: true
   
-      - name: Azure subscription rename
+      - name: Install Az Subscription
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: "latest"
+          inlineScript: |
+           Install-Module Az.Subscription
+
+      - name: Install Az Subscription
         uses: azure/powershell@v1
         with:
           azPSVersion: "latest"
           inlineScript: |
             Rename-AzSubscription -id ${{ secrets.ARM_SUBSCRIPTION_ID }} -SubscriptionName hogehoge
-            
 
