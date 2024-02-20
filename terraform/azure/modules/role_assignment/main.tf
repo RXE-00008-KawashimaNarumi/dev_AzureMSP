@@ -11,3 +11,4 @@ resource "azurerm_role_assignment" "role_assignment" {
   role_definition_name = var.role_definition_name
   principal_id         = data.azuread_user.import_user.object_id
 }
+
