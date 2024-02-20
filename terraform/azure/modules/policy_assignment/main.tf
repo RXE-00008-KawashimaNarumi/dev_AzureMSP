@@ -12,13 +12,12 @@ resource "azurerm_policy_definition" "policy_def" {
       "allOf": {
         "field": "location",
         "notIn": ["japaneast", "japanwest"]
-      }
-    },
-    {
-      "field": "location",
-      "notEquals": "global"
-    },
-    {
+      },
+      {
+        "field": "location",
+        "notEquals": "global"
+      },
+      {
       "field" "type",
       "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
     }
