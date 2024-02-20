@@ -11,7 +11,7 @@ resource "azurerm_policy_definition" "policy_def" {
     "if": {
       "allOf": {
         "field": "location",
-        "in": "[parameters("japaneast","japanwest")]"
+        "notIn": ["japaneast", "japanwest"]
       }
     },
     {
@@ -20,7 +20,7 @@ resource "azurerm_policy_definition" "policy_def" {
     },
     {
       "field" "type",
-      "notEquals": "Microsoft.AzureActiveDirectory/b2cdirectories"
+      "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
     }
     "then": {
       "effect": "deny"
