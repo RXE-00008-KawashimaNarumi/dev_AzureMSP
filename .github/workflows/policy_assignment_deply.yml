@@ -1,4 +1,4 @@
-name: role_assignment_deply
+name: subscription_policy_assignment_deply
 
 on:
     workflow_dispatch:
