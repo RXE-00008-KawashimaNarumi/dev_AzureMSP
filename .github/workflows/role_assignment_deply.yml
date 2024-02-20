@@ -29,13 +29,13 @@ jobs:
 
             - name: 'Terraform init'
               run: terraform init -backend-config=key=role_assignment.tfstate
-              working-directory: terraform/azure/enviroments/develop/role_assignment
+              working-directory: terraform/azure/enviroments/develop/assignment
 
             - name: 'Terraform plan'
               run: terraform plan -lock=false --var-file=./terraform.tfvars
-              working-directory: terraform/azure/enviroments/develop/role_assignment
+              working-directory: terraform/azure/enviroments/develop/assignment
 
             - name: 'Terraform apply'
               run: terraform apply -auto-approve -lock=false
-              working-directory: terraform/azure/enviroments/develop/role_assignment
+              working-directory: terraform/azure/enviroments/develop/assignment
 
