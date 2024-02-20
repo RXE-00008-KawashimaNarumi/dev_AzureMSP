@@ -19,7 +19,7 @@ resource "azurerm_policy_definition" "policy_def" {
          "notEquals": "global"
        },
        {
-       "field" "type",
+       "field": "type",
        "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
        }
       ]
