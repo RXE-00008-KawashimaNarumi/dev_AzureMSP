@@ -1,8 +1,4 @@
 ## user object id
-variable "subscription_id" {
-
-}
-
 variable "role_user_principal_name" {
   
 }

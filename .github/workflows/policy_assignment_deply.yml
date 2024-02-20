@@ -1,0 +1,41 @@
+name: role_assignment_deply
+
+on:
+    workflow_dispatch:
+
+jobs:
+    terraform:
+        name: 'Terraform'
+        env:
+            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                shell: bash
+        
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+        
+            - name: 'Setup Terraform CLI'
+              uses: hashicorp/setup-terraform@v2
+              with:
+                terraform_version: 1.7.0
+
+            - name: 'Terraform init'
+              run: terraform init -backend-config=key=policy_assignment.tfstate
+              working-directory: terraform/azure/enviroments/develop/policy_assignment
+
+            - name: 'Terraform plan'
+              run: terraform plan -lock=false --var-file=./terraform.tfvars
+              working-directory: terraform/azure/enviroments/develop/policy_assignment
+
+            - name: 'Terraform apply'
+              run: terraform apply -auto-approve -lock=false
+              working-directory: terraform/azure/enviroments/develop/policy_assignment
+

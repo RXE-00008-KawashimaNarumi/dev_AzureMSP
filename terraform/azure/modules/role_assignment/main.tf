@@ -1,5 +1,5 @@
 data "azurerm_subscription" "import_subscription" {
-    subscription_id = var.subscription_id
+
 }
 
 data "azuread_user" "import_user" {
