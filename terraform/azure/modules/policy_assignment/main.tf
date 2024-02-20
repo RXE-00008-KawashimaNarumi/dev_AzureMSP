@@ -2,7 +2,7 @@ data "azurerm_subscription" "import_subscription" {}
 
 resource "azurerm_policy_definition" "policy_def" {
   name         = "only-deploy-location"
-  policy_type  = "BuiltIn"
+  policy_type  = "Custom"
   mode         = "Indexed"
   display_name = "Allowed Location"
 
