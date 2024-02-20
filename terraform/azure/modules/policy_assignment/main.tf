@@ -9,18 +9,21 @@ resource "azurerm_policy_definition" "policy_def" {
   policy_rule = <<POLICY_RULE
  {
     "if": {
-      "allOf": {
-        "field": "location",
-        "notIn": ["japaneast", "japanwest"]
-      },
-      {
-        "field": "location",
-        "notEquals": "global"
-      },
-      {
-      "field" "type",
-      "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
-    }
+      "allOf": [
+       {
+         "field": "location",
+         "notIn": ["japaneast", "japanwest"]
+       },
+       {
+         "field": "location",
+         "notEquals": "global"
+       },
+       {
+       "field" "type",
+       "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+       }
+      ]
+    },
     "then": {
       "effect": "deny"
     }
