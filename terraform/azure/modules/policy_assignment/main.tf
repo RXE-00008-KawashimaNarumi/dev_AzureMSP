@@ -34,7 +34,7 @@ POLICY_RULE
 resource "azurerm_subscription_policy_assignment" "policy_assign" {
   name                 = "allow_location_subsucription_policy_assign"
   policy_definition_id = azurerm_policy_definition.policy_def.id
-  subscription_id      = data.azurerm_subscinn.import_subscription.id
+  subscription_id      = data.azurerm_subscription.import_subscription.id
 }
 
 
