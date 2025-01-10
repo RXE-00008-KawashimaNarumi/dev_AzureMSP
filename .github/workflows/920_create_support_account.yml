@@ -1,0 +1,93 @@
+# Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
+
+name: "920_問い合わせ用アカウント作成"
+run-name: "920_create_support_account"
+on:
+  workflow_call:
+    secrets:
+      ARM_CLIENT_ID:
+        required: true
+      ARM_CLIENT_SECRET:
+        required: true
+      ARM_SUBSCRIPTION_ID:
+        required: true
+      ARM_TENANT_ID:
+        required: true
+    inputs:
+      ENVIRONMENT:
+        description: "環境名"
+        type: "string"
+        required: true
+    # NOTE: 将来的には他からAPIでユーザ作成に必要なパラメータが渡ってくる想定であるものの、
+    #       現状はtfvarsで読み取っている。
+    # inputs:
+    #   accountEnabled:
+    #     type: boolean
+    #     required: false
+    #     description: 'Whether or not the account should be enabled.'
+    #   displayName:
+    #     type: string
+    #     required: true
+    #     description: 'The name to display in the address book for the user.'
+    #   onPremisesImmutableId:
+    #     type: string
+    #     required: false
+    #     description: 'The value used to associate an on-premise Active Directory user account with their Azure AD user object.'
+    #   mailNickname:
+    #     type: string
+    #     required: false
+    #     description: 'The mail alias for the user. Defaults to the user name part of the user principal name.'
+    #   forceChangePasswordNextSignIn:
+    #     type: boolean
+    #     required: false
+    #     description: 'Whether the user is forced to change the password during the next sign-in.'
+    #   password:
+    #     type: string
+    #     require: false
+    #     description: 'The password for the user.'
+    #   userPrincipalName:
+    #     type: string
+    #     required: true
+    #     description: 'The user principal name (UPN) of the user.'
+jobs:
+  terraform:
+    name: 'Terraform'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      # NOTE: terraform working directoryは一旦ここで指定する。
+      #       将来的には他からAPI等を使って呼び出されるときに一緒にパラメータとして受け取るようにしたい。
+      TF_WORK_DIR: "920_create_support_account"
+
+      # NOTE: 将来的には他からAPIでユーザ作成に必要なパラメータが渡ってくる想定であるものの、
+      #       現状はtfvarsで読み取っている。
+      # TF_VAR_account_enabled: ${{ inputs.accountEnabled }}
+      # TF_VAR_display_name: ${{ inputs.displayName }}
+      # TF_VAR_on_premises_immutable_id: ${{ inputs.onPremisesImmutableId }}
+      # TF_VAR_mail_nickname: ${{ inputs.mailNickname }}
+      # TF_VAR_force_password_change: ${{ inputs.forceChangePasswordNextSignIn }}
+      # TF_VAR_password: ${{ inputs.password }}
+      # TF_VAR_user_principal_name: ${{ inputs.userPrincipalName }}
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          shell: bash
+        # NOTE: 以降のstepsは他でも同じような書き方をするため、将来的には別に切り出したい
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: 'Setup Terraform CLI'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.0
+      - name: 'Terraform init'
+        run: terraform init -backend-config=key=${{ env.TF_WORK_DIR }}.tfstate
+        working-directory: terraform/azure/environments/${{ github.event.inputs.ENVIRONMENT }}/${{ env.TF_WORK_DIR }}
+      - name: 'Terraform plan'
+        run: terraform plan -lock=false
+        working-directory: terraform/azure/environments/${{ github.event.inputs.ENVIRONMENT }}/${{ env.TF_WORK_DIR }}
+      - name: 'Terraform apply'
+        run: terraform apply -auto-approve -lock=false
+        working-directory: terraform/azure/environments/${{ github.event.inputs.ENVIRONMENT }}/${{ env.TF_WORK_DIR }}
