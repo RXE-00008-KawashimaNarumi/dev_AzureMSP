@@ -1,6 +1,6 @@
 # Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
 
-name: "200_azure_setup"
+name: "300_azure_virtual_machine_setting"
 on:
     workflow_dispatch:
         inputs:
@@ -12,51 +12,11 @@ on:
 jobs:
     job_01:
         name: "920_問い合わせ用アカウント作成"
-        uses: "./.github/workflows/920_create_support_account.yml"
+        uses: "./.github/workflows/945_create_virtual_machine.yml"
         secrets:
             ARM_CLIENT_ID: ${{ secrets.AZURE_NRICSPMNG_CLIENT_ID }}
             ARM_CLIENT_SECRET: ${{ secrets.AZURE_NRICSPMNG_CLIENT_SECRET }}
             ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_NRICSPMNG_SUBSCRIPTION_ID }}
             ARM_TENANT_ID: ${{ secrets.AZURE_NRICSPMNG_TENANT_ID }}
-        with:
-            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
-    job_02:
-        name: "925_問い合わせ用アカウントの招待"
-        uses: "./.github/workflows/925_invite_support_user.yml"
-        needs: job_01
-        secrets:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
-        with:
-            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
-    job_03:
-        name: "930_問い合わせ用アカウントへのロール割り当て"
-        uses: "./.github/workflows/930_grant_support_user_role.yml"
-        needs: job_02
-        secrets:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
-        with:
-            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
-    job_04:
-        name: "935_サブスクリプション名の変更"
-        uses: "./.github/workflows/935_rename_subscription.yml"
-        needs: job_03
-        secrets:
-            ARM_CREDENTIAL_ID: ${{ secrets.AZURE_CUSTOMER_CREDENTIAL_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
-    job_05:
-        name: "940_サブスクリプションへのポリシー適用"
-        uses: "./.github/workflows/940_apply_policy_to_subscription.yml"
-        needs: job_04
-        secrets:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
         with:
             ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
