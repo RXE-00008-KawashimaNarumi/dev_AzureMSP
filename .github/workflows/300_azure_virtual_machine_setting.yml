@@ -11,7 +11,7 @@ on:
                 required: false
 jobs:
     job_01:
-        name: "920_問い合わせ用アカウント作成"
+        name: "945_仮想マシン作成"
         uses: "./.github/workflows/945_create_virtual_machine.yml"
         secrets:
             ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
