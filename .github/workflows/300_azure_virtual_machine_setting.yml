@@ -12,7 +12,7 @@ on:
 jobs:
     job_01:
         name: "945_仮想マシン作成"
-        uses: "./.github/workflows/945_crate_virtual_machine.yml"
+        uses: "./.github/workflows/945_create_virtual_machine.yml"
         secrets:
             ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
             ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
