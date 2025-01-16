@@ -1,0 +1,22 @@
+# Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
+
+name: "300_azure_virtual_machine_setting"
+on:
+    workflow_dispatch:
+        inputs:
+            ENVIRONMENT:
+                description: "環境名"
+                type: "string"
+                default: "test"
+                required: false
+jobs:
+    job_01:
+        name: "920_問い合わせ用アカウント作成"
+        uses: "./.github/workflows/945_create_virtual_machine.yml"
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_NRICSPMNG_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_NRICSPMNG_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_NRICSPMNG_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_NRICSPMNG_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
