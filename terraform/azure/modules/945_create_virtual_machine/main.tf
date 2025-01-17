@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine" "example" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "19_04-lts-gen2"
+    sku       = "18_04-lts-gen2"
     version   = "latest"
   }
 
@@ -128,7 +128,7 @@ resource "azurerm_monitor_data_collection_rule" "example" {
   data_sources {
     performance_counter {
       name                = "performance-counters"
-      streams             = ["Microsoft-PerformanceCounter"]
+      streams             = ["Microsoft-InsightsMetrics"]
       counter_specifiers  = ["\\Processor(_Total)\\% Processor Time"]
       sampling_frequency_in_seconds = 15
     }
