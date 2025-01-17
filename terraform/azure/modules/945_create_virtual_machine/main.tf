@@ -10,7 +10,7 @@ variable "common_tags" {
 # Resource Group
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "East US"
+  location = "Japan East"
   tags     = var.common_tags
 }
 
@@ -29,7 +29,6 @@ resource "azurerm_subnet" "example" {
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = ["10.0.1.0/24"]
-  tags                 = var.common_tags
 }
 
 # Network Interface
@@ -127,7 +126,7 @@ resource "azurerm_monitor_data_collection_rule" "example" {
   description         = "Data Collection Rule for Azure Monitor Agent"
 
   data_sources {
-    performance_counters {
+    performance_counter {
       name                = "performance-counters"
       counter_specifiers  = ["\\Processor(_Total)\\% Processor Time"]
       sampling_frequency_in_seconds = 15
@@ -139,6 +138,11 @@ resource "azurerm_monitor_data_collection_rule" "example" {
       name                = "loganalytics-destination"
       workspace_resource_id = azurerm_log_analytics_workspace.example.id
     }
+  }
+
+  data_flow {
+    streams = ["Microsoft-PerformanceCounter"]
+    destinations = ["loganalytics-destination"]
   }
 
   tags = var.common_tags
