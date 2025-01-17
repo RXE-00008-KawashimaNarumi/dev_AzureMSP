@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine" "example" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "20_04-lts-gen2"
+    sku       = "20_04-lts"
     version   = "latest"
   }
 
@@ -113,7 +113,7 @@ resource "azurerm_log_analytics_workspace" "example" {
   name                = "example-law"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  sku                 = "Free"
+  sku                 = "PerGB2018"
   retention_in_days   = 30
   tags                = var.common_tags
 }
