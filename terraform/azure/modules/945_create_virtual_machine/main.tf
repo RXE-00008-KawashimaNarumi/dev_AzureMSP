@@ -3,14 +3,14 @@ variable "common_tags" {
   type = map(string)
   default = {
     environment = "Development"
-    owner       = "Team XYZ"
+    owner       = "terraform"
   }
 }
 
 # Resource Group
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "Japan East"
+  location = "japaneast"
   tags     = var.common_tags
 }
 
