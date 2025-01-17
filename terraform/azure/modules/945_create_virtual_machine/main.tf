@@ -128,6 +128,7 @@ resource "azurerm_monitor_data_collection_rule" "example" {
   data_sources {
     performance_counter {
       name                = "performance-counters"
+      streams             = ["Microsoft-PerformanceCounter"]
       counter_specifiers  = ["\\Processor(_Total)\\% Processor Time"]
       sampling_frequency_in_seconds = 15
     }
@@ -156,7 +157,7 @@ resource "azurerm_monitor_data_collection_rule_association" "example" {
 }
 
 # Custom Dashboard
-resource "azurerm_dashboard" "example" {
+resource "azurerm_portal_dashboard" "example" {
   name                = "example-dashboard"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
