@@ -130,7 +130,7 @@ resource "azurerm_monitor_data_collection_rule" "example" {
       name                = "performance-counters"
       streams             = ["Microsoft-InsightsMetrics"]
       counter_specifiers  = ["\\Processor(_Total)\\% Processor Time"]
-      sampling_frequency_in_seconds = 15
+      sampling_frequency_in_seconds = 60
     }
   }
 
@@ -142,7 +142,7 @@ resource "azurerm_monitor_data_collection_rule" "example" {
   }
 
   data_flow {
-    streams = ["Microsoft-PerformanceCounter"]
+    streams      = ["Microsoft-InsightsMetrics"]
     destinations = ["loganalytics-destination"]
   }
 
