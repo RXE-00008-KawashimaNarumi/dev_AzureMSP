@@ -3,14 +3,14 @@ variable "common_tags" {
   type = map(string)
   default = {
     environment = "Development"
-    owner       = "Team XYZ"
+    owner       = "terraform"
   }
 }
 
 # Resource Group
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "East US"
+  location = "japaneast"
   tags     = var.common_tags
 }
 
@@ -29,7 +29,6 @@ resource "azurerm_subnet" "example" {
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = ["10.0.1.0/24"]
-  tags                 = var.common_tags
 }
 
 # Network Interface
@@ -85,7 +84,7 @@ resource "azurerm_virtual_machine" "example" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "20_04-lts-gen2"
+    sku       = "18_04-lts-gen2"
     version   = "latest"
   }
 
@@ -114,7 +113,7 @@ resource "azurerm_log_analytics_workspace" "example" {
   name                = "example-law"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  sku                 = "Free"
+  sku                 = "PerGB2018"
   retention_in_days   = 30
   tags                = var.common_tags
 }
@@ -127,10 +126,11 @@ resource "azurerm_monitor_data_collection_rule" "example" {
   description         = "Data Collection Rule for Azure Monitor Agent"
 
   data_sources {
-    performance_counters {
+    performance_counter {
       name                = "performance-counters"
+      streams             = ["Microsoft-InsightsMetrics"]
       counter_specifiers  = ["\\Processor(_Total)\\% Processor Time"]
-      sampling_frequency_in_seconds = 15
+      sampling_frequency_in_seconds = 60
     }
   }
 
@@ -139,6 +139,11 @@ resource "azurerm_monitor_data_collection_rule" "example" {
       name                = "loganalytics-destination"
       workspace_resource_id = azurerm_log_analytics_workspace.example.id
     }
+  }
+
+  data_flow {
+    streams      = ["Microsoft-InsightsMetrics"]
+    destinations = ["loganalytics-destination"]
   }
 
   tags = var.common_tags
@@ -152,7 +157,7 @@ resource "azurerm_monitor_data_collection_rule_association" "example" {
 }
 
 # Custom Dashboard
-resource "azurerm_dashboard" "example" {
+resource "azurerm_portal_dashboard" "example" {
   name                = "example-dashboard"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
