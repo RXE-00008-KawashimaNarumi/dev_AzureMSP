@@ -36,15 +36,12 @@ resource "azurerm_monitor_activity_log_alert" "service_health_alert" {
   scopes              = ["/subscriptions/${data.azurerm_client_config.current.subscription_id}"]
   description         = "Notifies when a planned maintenance event or service issue occurs"
 
-  criteria {
-    category = "ServiceHealth"
+   criteria {
+    category       = "ServiceHealth"
     operation_name = "Microsoft.ResourceHealth/healthevent/action"
-    level = "Informational"
-
-    condition {
-      field     = "properties.incidentType"
-      in        = ["Planned Maintenance", "Service Issue"]  # 計画メンテナンス & サービス問題
-    }
+    level          = "Informational"
+    field          = "properties.incidentType"
+    in             = ["Planned Maintenance", "Service Issue"]
   }
 
   action {
