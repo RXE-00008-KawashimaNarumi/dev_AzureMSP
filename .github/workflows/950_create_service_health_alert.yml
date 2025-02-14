@@ -24,7 +24,7 @@ jobs:
             ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
             ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
             ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            TF_WORK_DIR: "945_create_virtual_machine"
+            TF_WORK_DIR: "950_create_service_health_alert"
         runs-on: ubuntu-latest
         defaults:
             run:
