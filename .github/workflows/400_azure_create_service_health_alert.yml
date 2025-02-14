@@ -1,6 +1,6 @@
 # Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
 
-name: "300_azure_virtual_machine_setting"
+name: "400_azure_create_service_health_alert"
 on:
     workflow_dispatch:
         inputs:
@@ -11,8 +11,8 @@ on:
                 required: false
 jobs:
     job_01:
-        name: "945_仮想マシン作成"
-        uses: "./.github/workflows/945_create_virtual_machine.yml"
+        name: "950_サービスアラート設定"
+        uses: "./.github/workflows/950_create_service_health_alert.yml"
         secrets:
             ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
             ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}

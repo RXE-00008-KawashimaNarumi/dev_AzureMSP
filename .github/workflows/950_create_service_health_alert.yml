@@ -1,5 +1,5 @@
-name: "945_仮想マシン作成"
-run-name: "945_create_virtual_machine"
+name: "950_サービスアラート設定"
+run-name: "950_create_service_health_alert"
 on:
     workflow_call:
         secrets:
