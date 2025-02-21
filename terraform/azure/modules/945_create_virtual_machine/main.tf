@@ -182,7 +182,7 @@ resource "azurerm_portal_dashboard" "example" {
                 },
                 {
                   "name" : "resourceId",
-                  "value" : azurerm_virtual_machine.example.id
+                  "value" : "/subscriptions/907256ea-4854-4151-ad72-d9cb8e7f0789/resourceGroups/example-resources/providers/Microsoft.Compute/virtualMachines/example-vm"
                 }
               ],
               "type" : "Extension/Metrics"
