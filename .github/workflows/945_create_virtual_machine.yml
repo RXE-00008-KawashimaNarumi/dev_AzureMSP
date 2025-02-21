@@ -43,5 +43,5 @@ jobs:
               run: terraform plan -lock=false --var-file=./terraform.tfvars
               working-directory: terraform/azure/environments/${{ github.event.inputs.ENVIRONMENT }}/${{ env.TF_WORK_DIR }}
             - name: 'Terraform apply'
-              run: terraform destroy -auto-approve -lock=false
+              run: terraform apply -auto-approve -lock=false
               working-directory: terraform/azure/environments/${{ github.event.inputs.ENVIRONMENT }}/${{ env.TF_WORK_DIR }}
