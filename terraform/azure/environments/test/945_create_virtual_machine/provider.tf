@@ -8,5 +8,9 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_delection_if_contains_resources = false
+    }
+  }
 }
