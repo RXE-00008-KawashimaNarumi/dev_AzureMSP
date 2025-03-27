@@ -115,7 +115,7 @@ resource "azurerm_virtual_machine_extension" "az_vme" {
   virtual_machine_id   = azurerm_linux_virtual_machine.az_lvm.id
   publisher            = "Microsoft.Azure.Monitor"
   type                 = "AzureMonitorLinuxAgent"
-  type_handler_version = "1.0"
+  type_handler_version = "1.*"
   settings             = jsonencode({})
 
   depends_on = [azurerm_linux_virtual_machine.az_lvm]
@@ -169,7 +169,6 @@ resource "azurerm_monitor_data_collection_rule_association" "az_mdcra" {
   name                    = "vm-dcr-association"
   target_resource_id      = azurerm_linux_virtual_machine.az_lvm.id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.az_mdcr.id
-  data_collection_endpoint_id  = azurerm_monitor_data_collection_endpoint.az_mdce.id
 }
 
 # Create Dashboard (CPU&Memory&Disk)
@@ -274,7 +273,7 @@ resource "azurerm_monitor_action_group" "az_mag" {
 
   email_receiver {
     name                    = "admin-email"
-    email_address           = "	kawashima.narumi@re-x-expansion.com"
+    email_address           = "kawashima.narumi@re-x-expansion.com"
     use_common_alert_schema = true
   }
 
