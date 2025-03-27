@@ -151,7 +151,9 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
   }
 
   destinations {
-  data_collection_endpoint_id = azurerm_monitor_data_collection_endpoint.az_mdce.id
+    monitoring_account {
+      name = "destination1"
+    }
 }
 
   data_flow {
@@ -162,13 +164,13 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
   tags = var.common_tags
 }
 
-
-
 # DCR Association to VM
 resource "azurerm_monitor_data_collection_rule_association" "az_mdcra" {
   name                    = "vm-dcr-association"
   target_resource_id      = azurerm_linux_virtual_machine.az_lvm.id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.az_mdcr.id
+  data_collection_endpoint_id  = azurerm_monitor_data_collection_endpoint.az_mdce.id
+  target_resource_id           = azurerm_linux_virtual_machine.az_lvm.id
 }
 
 # Create Dashboard (CPU&Memory&Disk)
