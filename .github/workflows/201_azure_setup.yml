@@ -44,14 +44,14 @@ jobs:
             ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
     job_04:
         name: "904_rename_subscription"
-        uses: "./.github/workflows/904_rename_subscription.yml"
+        uses: "./.github/workflows/905_rename_subscription.yml"
         needs: job_03
         secrets:
             ARM_CREDENTIAL_ID: ${{ secrets.AZURE_CUSTOMER_CREDENTIAL_ID }}
             ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
     job_05:
         name: "905_apply_policy_to_subscription"
-        uses: "./.github/workflows/905_apply_policy_to_subscription.yml"
+        uses: "./.github/workflows/904_apply_policy_to_subscription.yml"
         needs: job_04
         secrets:
             ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
