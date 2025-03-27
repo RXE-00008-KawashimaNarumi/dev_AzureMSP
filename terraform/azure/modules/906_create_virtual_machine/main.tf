@@ -170,7 +170,6 @@ resource "azurerm_monitor_data_collection_rule_association" "az_mdcra" {
   target_resource_id      = azurerm_linux_virtual_machine.az_lvm.id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.az_mdcr.id
   data_collection_endpoint_id  = azurerm_monitor_data_collection_endpoint.az_mdce.id
-  target_resource_id           = azurerm_linux_virtual_machine.az_lvm.id
 }
 
 # Create Dashboard (CPU&Memory&Disk)
