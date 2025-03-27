@@ -2,7 +2,11 @@ name: 'TerraformCodeCheck'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
+      - staging
+      - dev
+      - feature/*
   pull_request:
 
 jobs:
@@ -23,3 +27,4 @@ jobs:
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform fmt
         run: terraform fmt -check -recursive -diff
+

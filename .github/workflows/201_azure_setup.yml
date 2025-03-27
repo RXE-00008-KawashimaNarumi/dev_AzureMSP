@@ -1,0 +1,73 @@
+# Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
+
+name: "201_azure_setup"
+on:
+    workflow_dispatch:
+        inputs:
+            ENVIRONMENT:
+                description: "Environment name"
+                type: "string"
+                default: "test"
+                required: false
+jobs:
+    job_01:
+        name: "901_create_support_account"
+        uses: "./.github/workflows/901_create_support_account.yml"
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_NRICSPMNG_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_NRICSPMNG_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_NRICSPMNG_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_NRICSPMNG_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
+    job_02:
+        name: "902_invite_support_user"
+        uses: "./.github/workflows/902_invite_support_user.yml"
+        needs: job_01
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
+    job_03:
+        name: "903_grant_support_user_role"
+        uses: "./.github/workflows/903_grant_support_user_role.yml"
+        needs: job_02
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
+    job_04:
+        name: "904_rename_subscription"
+        uses: "./.github/workflows/904_rename_subscription.yml"
+        needs: job_03
+        secrets:
+            ARM_CREDENTIAL_ID: ${{ secrets.AZURE_CUSTOMER_CREDENTIAL_ID }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+    job_05:
+        name: "905_apply_policy_to_subscription"
+        uses: "./.github/workflows/905_apply_policy_to_subscription.yml"
+        needs: job_04
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"
+    job_06:
+        name: "907_set_service_health_alert"
+        uses: "./.github/workflows/907_set_service_health_alert.yml"
+        needs: job_05
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"

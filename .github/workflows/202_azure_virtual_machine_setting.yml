@@ -1,0 +1,22 @@
+# Copyright(C) Nomura Research Institute, Ltd. All Rights Reserved.
+
+name: "202_azure_create_virtual_machine"
+on:
+    workflow_dispatch:
+        inputs:
+            ENVIRONMENT:
+                description: "Environment name"
+                type: "string"
+                default: "test"
+                required: false
+jobs:
+    job_01:
+        name: "906_create_virtual_machine"
+        uses: "./.github/workflows/906_create_virtual_machine.yml"
+        secrets:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_CUSTOMER_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CUSTOMER_CLIENT_SECRET }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_CUSTOMER_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_CUSTOMER_TENANT_ID }}
+        with:
+            ENVIRONMENT: "${{ github.event.inputs.ENVIRONMENT }}"

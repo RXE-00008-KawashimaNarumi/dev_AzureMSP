@@ -1,8 +1,0 @@
-## user object id
-variable "role_user_principal_name" {
-  
-}
-
-variable "role_definition_name" {
-  
-}
