@@ -151,11 +151,8 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
   }
 
   destinations {
-    monitoring_account {
-      name = "destination1"
-      id   = azurerm_monitor_data_collection_endpoint.az_mdce.id
-    }
-  }
+  data_collection_endpoint_id = azurerm_monitor_data_collection_endpoint.az_mdce.id
+}
 
   data_flow {
     streams      = ["Microsoft-InsightsMetrics"]
