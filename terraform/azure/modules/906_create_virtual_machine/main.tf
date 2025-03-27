@@ -126,7 +126,7 @@ resource "azurerm_monitor_data_collection_endpoint" "az_mdce" {
   name                = "vm-dce-metrics-001"
   location            = azurerm_resource_group.az_rg.location
   resource_group_name = azurerm_resource_group.az_rg.name
-  kind                = "MonitoringAccount"
+  kind                = "Linux"
 }
 
 # Create DCR (Data Collection Rule)
@@ -272,7 +272,7 @@ resource "azurerm_portal_dashboard" "az_pd" {
 resource "azurerm_monitor_action_group" "az_mag" {
   name                = "resource-health-action-group-001"
   resource_group_name = azurerm_resource_group.az_rg.name
-  short_name          = "rhealthAG-001"
+  short_name          = "rhAG-001"
 
   email_receiver {
     name                    = "admin-email"
