@@ -269,7 +269,7 @@ resource "azurerm_monitor_activity_log_alert" "az_mala" {
   description         = "Alert when VM is not Available based on Resource Health"
 
   criteria {
-    category = "ResourceHealth"
+    category       = "ResourceHealth"
     operation_name = "Microsoft.ResourceHealth/healthevent/Activated/action"
   }
 
