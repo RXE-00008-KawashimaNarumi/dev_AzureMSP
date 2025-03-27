@@ -49,5 +49,5 @@ resource "azurerm_monitor_activity_log_alert" "service_health_alert" {
     action_group_id = azurerm_monitor_action_group.az_mag.id
   }
 
-  tags     = var.common_tags
+  tags = var.common_tags
 }

@@ -172,16 +172,16 @@ resource "azurerm_portal_dashboard" "az_pd" {
                 { name = "chartSettings", value = jsonencode({
                   metrics = [
                     {
-                      id         = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName = "Percentage CPU"
+                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                      metricName  = "Percentage CPU"
                       aggregation = "Average"
                     }
                   ],
-                  title     = "CPU Usage",
+                  title         = "CPU Usage",
                   visualization = "line",
-                  yAxis = { label = "%", min = 0, max = 100 },
-                  legend = { isVisible = true },
-                  timespan = { duration = "PT1H" }
+                  yAxis         = { label = "%", min = 0, max = 100 },
+                  legend        = { isVisible = true },
+                  timespan      = { duration = "PT1H" }
                 }) }
               ]
             }
@@ -195,16 +195,16 @@ resource "azurerm_portal_dashboard" "az_pd" {
                 { name = "chartSettings", value = jsonencode({
                   metrics = [
                     {
-                      id         = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName = "Available Memory Bytes"
+                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                      metricName  = "Available Memory Bytes"
                       aggregation = "Average"
                     }
                   ],
-                  title     = "Available Memory",
+                  title         = "Available Memory",
                   visualization = "line",
-                  yAxis = { label = "Bytes", min = 0 },
-                  legend = { isVisible = true },
-                  timespan = { duration = "PT1H" }
+                  yAxis         = { label = "Bytes", min = 0 },
+                  legend        = { isVisible = true },
+                  timespan      = { duration = "PT1H" }
                 }) }
               ]
             }
@@ -218,16 +218,16 @@ resource "azurerm_portal_dashboard" "az_pd" {
                 { name = "chartSettings", value = jsonencode({
                   metrics = [
                     {
-                      id         = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName = "Used Disk Space Percentage"
+                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                      metricName  = "Used Disk Space Percentage"
                       aggregation = "Average"
                     }
                   ],
-                  title     = "Disk Usage %",
+                  title         = "Disk Usage %",
                   visualization = "line",
-                  yAxis = { label = "%", min = 0, max = 100 },
-                  legend = { isVisible = true },
-                  timespan = { duration = "PT1H" }
+                  yAxis         = { label = "%", min = 0, max = 100 },
+                  legend        = { isVisible = true },
+                  timespan      = { duration = "PT1H" }
                 }) }
               ]
             }
