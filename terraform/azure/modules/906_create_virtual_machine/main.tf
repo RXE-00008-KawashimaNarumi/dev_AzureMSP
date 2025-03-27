@@ -151,7 +151,7 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
   }
 
   destinations {
-    monitoring_account {
+    azure_monitor_metrics {
       name = "destination1"
     }
 }
