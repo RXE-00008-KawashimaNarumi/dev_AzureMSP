@@ -121,6 +121,14 @@ resource "azurerm_virtual_machine_extension" "az_vme" {
   depends_on = [azurerm_linux_virtual_machine.az_lvm]
 }
 
+# Data Collection Endpoint（DCE）
+resource "azurerm_monitor_data_collection_endpoint" "az_mdce" {
+  name                = "vm-dce-metrics-001"
+  location            = azurerm_resource_group.az_rg.location
+  resource_group_name = azurerm_resource_group.az_rg.name
+  kind                = "MonitoringAccount"
+}
+
 # Create DCR (Data Collection Rule)
 resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
   name                = "vm-dcr-metrics-001"
@@ -142,8 +150,22 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
     }
   }
 
-  destinations {}
+  destinations {
+    monitoring_account {
+      name = "destination1"
+      id   = azurerm_monitor_data_collection_endpoint.az_mdce.id
+    }
+  }
+
+  data_flow {
+    streams      = ["Microsoft-InsightsMetrics"]
+    destinations = ["destination1"]
+  }
+
+  tags = var.common_tags
 }
+
+
 
 # DCR Association to VM
 resource "azurerm_monitor_data_collection_rule_association" "az_mdcra" {
@@ -250,7 +272,7 @@ resource "azurerm_portal_dashboard" "az_pd" {
 resource "azurerm_monitor_action_group" "az_mag" {
   name                = "resource-health-action-group-001"
   resource_group_name = azurerm_resource_group.az_rg.name
-  short_name          = "resourcehealthAG-001"
+  short_name          = "rhealthAG-001"
 
   email_receiver {
     name                    = "admin-email"
