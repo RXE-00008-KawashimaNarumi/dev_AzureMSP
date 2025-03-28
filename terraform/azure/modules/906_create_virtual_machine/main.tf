@@ -178,91 +178,188 @@ resource "azurerm_portal_dashboard" "az_pd" {
   location            = azurerm_resource_group.az_rg.location
 
   dashboard_properties = jsonencode({
-    lenses = {
-      "0" = {
-        order = 0
-        parts = {
-          "cpuChart" = {
-            position = { x = 0, y = 0, rowSpan = 6, colSpan = 12 }
-            metadata = {
-              type = "Extension/Microsoft_Azure_Monitoring/Components/MetricChartPart"
-              inputs = [
-                { name = "resourceType", value = "microsoft.compute/virtualmachines" },
-                { name = "chartSettings", value = jsonencode({
-                  metrics = [
-                    {
-                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName  = "Percentage CPU"
-                      aggregation = "Average"
+  "properties": {
+    "lenses": [
+      {
+        "order": 0,
+        "parts": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 11,
+              "rowSpan": 5
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "options",
+                  "isOptional": true
+                },
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                          },
+                          "name": "Percentage CPU",
+                          "aggregationType": 4,
+                          "namespace": "microsoft.compute/virtualmachines",
+                          "metricVisualization": {
+                            "displayName": "Percentage CPU",
+                            "resourceDisplayName": "${azurerm_linux_virtual_machine.az_lvm.name}"
+                          }
+                        }
+                      ],
+                      "title": "CPU Utilization",
+                      "titleKind": 2,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
                     }
-                  ],
-                  title         = "CPU Usage",
-                  visualization = "line",
-                  yAxis         = { label = "%", min = 0, max = 100 },
-                  legend        = { isVisible = true },
-                  timespan      = { duration = "PT1H" }
-                }) }
-              ]
+                  }
+                }
+              }
             }
           },
-          "memoryChart" = {
-            position = { x = 0, y = 6, rowSpan = 6, colSpan = 12 }
-            metadata = {
-              type = "Extension/Microsoft_Azure_Monitoring/Components/MetricChartPart"
-              inputs = [
-                { name = "resourceType", value = "microsoft.compute/virtualmachines" },
-                { name = "chartSettings", value = jsonencode({
-                  metrics = [
-                    {
-                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName  = "Available Memory Bytes"
-                      aggregation = "Average"
+          {
+            "position": {
+              "x": 0,
+              "y": 5,
+              "colSpan": 11,
+              "rowSpan": 5
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "options",
+                  "isOptional": true
+                },
+                {
+                  "name": "sharedTimeRange",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/MonitorChartPart",
+              "settings": {
+                "content": {
+                  "options": {
+                    "chart": {
+                      "metrics": [
+                        {
+                          "resourceMetadata": {
+                            "id": "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                          },
+                          "name": "Available Memory Bytes",
+                          "aggregationType": 4,
+                          "namespace": "microsoft.compute/virtualmachines",
+                          "metricVisualization": {
+                            "displayName": "Available Memory Bytes (Preview)",
+                            "resourceDisplayName": "${azurerm_linux_virtual_machine.az_lvm.name}"
+                          }
+                        }
+                      ],
+                      "title": "Memory Utilization",
+                      "titleKind": 2,
+                      "visualization": {
+                        "chartType": 2,
+                        "legendVisualization": {
+                          "isVisible": true,
+                          "position": 2,
+                          "hideHoverCard": false,
+                          "hideLabelNames": true
+                        },
+                        "axisVisualization": {
+                          "x": {
+                            "isVisible": true,
+                            "axisType": 2
+                          },
+                          "y": {
+                            "isVisible": true,
+                            "axisType": 1
+                          }
+                        },
+                        "disablePinning": true
+                      }
                     }
-                  ],
-                  title         = "Available Memory",
-                  visualization = "line",
-                  yAxis         = { label = "Bytes", min = 0 },
-                  legend        = { isVisible = true },
-                  timespan      = { duration = "PT1H" }
-                }) }
-              ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
             }
           },
-          "diskChart" = {
-            position = { x = 0, y = 12, rowSpan = 6, colSpan = 12 }
-            metadata = {
-              type = "Extension/Microsoft_Azure_Monitoring/Components/MetricChartPart"
-              inputs = [
-                { name = "resourceType", value = "microsoft.compute/virtualmachines" },
-                { name = "chartSettings", value = jsonencode({
-                  metrics = [
-                    {
-                      id          = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                      metricName  = "Used Disk Space Percentage"
-                      aggregation = "Average"
-                    }
-                  ],
-                  title         = "Disk Usage %",
-                  visualization = "line",
-                  yAxis         = { label = "%", min = 0, max = 100 },
-                  legend        = { isVisible = true },
-                  timespan      = { duration = "PT1H" }
-                }) }
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        },
+        "filterLocale": {
+          "value": "ja-jp"
+        },
+        "filters": {
+          "value": {
+            "MsPortalFx_TimeRange": {
+              "model": {
+                "format": "utc",
+                "granularity": "auto",
+                "relative": "24h"
+              },
+              "displayCache": {
+                "name": "UTC 時間",
+                "value": "過去 24 時間"
+              },
+              "filteredPartIds": [
+                "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d16e",
+                "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d24b"
               ]
             }
           }
         }
       }
-    },
-    metadata = {
-      model = {
-        timeRange = {
-          value = { durationMs = 3600000 },
-          type  = "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
-        }
-      }
     }
-  })
+  },
+  "name": "dashboard-001",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "INSERT LOCATION",
+  "tags": {
+    "hidden-title": "dashboard-001"
+  },
+  "apiVersion": "2022-12-01-preview"
+})
 }
 
 # Resource Health Action Group
