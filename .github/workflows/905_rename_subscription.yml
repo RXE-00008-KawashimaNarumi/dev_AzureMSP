@@ -30,4 +30,4 @@ jobs:
         with:
           azPSVersion: "11.6.0"
           inlineScript: |
-            Rename-AzSubscription -id ${{ secrets.ARM_SUBSCRIPTION_ID }} -SubscriptionName subscription-name-001
+            Rename-AzSubscription -id ${{ secrets.ARM_SUBSCRIPTION_ID }} -SubscriptionName subscription-name
