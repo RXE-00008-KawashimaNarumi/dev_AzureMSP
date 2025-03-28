@@ -184,8 +184,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
     lenses = {
       "0" = {
         order = 0
-        parts = [
-          {
+        parts = {
+          "part0" = {
             position = {
               x       = 0
               y       = 0
@@ -249,8 +249,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
                 }
               }
             }
-          },
-          {
+          }
+          "part1" = {
             position = {
               x       = 0
               y       = 5
@@ -315,7 +315,7 @@ resource "azurerm_portal_dashboard" "az_pd" {
               }
             }
           }
-        ]
+        }
       }
     }
     metadata = {
