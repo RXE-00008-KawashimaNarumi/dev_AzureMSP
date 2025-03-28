@@ -9,6 +9,11 @@ on:
                 type: "string"
                 default: "test"
                 required: false
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
     job_01:
         name: "901_create_support_account"
