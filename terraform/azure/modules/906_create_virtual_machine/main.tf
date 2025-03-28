@@ -154,7 +154,7 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
     azure_monitor_metrics {
       name = "destination1"
     }
-  }
+}
 
   data_flow {
     streams      = ["Microsoft-InsightsMetrics"]
@@ -177,188 +177,183 @@ resource "azurerm_portal_dashboard" "az_pd" {
   resource_group_name = azurerm_resource_group.az_rg.name
   location            = azurerm_resource_group.az_rg.location
 
+  tags = {
+    "hidden-title" = "dashboard-001"
+  }
+
   dashboard_properties = jsonencode({
-    "properties" : {
-      "lenses" : [
-        {
-          "order" : 0,
-          "parts" : [
-            {
-              "position" : {
-                "x" : 0,
-                "y" : 0,
-                "colSpan" : 11,
-                "rowSpan" : 5
-              },
-              "metadata" : {
-                "inputs" : [
-                  {
-                    "name" : "options",
-                    "isOptional" : true
-                  },
-                  {
-                    "name" : "sharedTimeRange",
-                    "isOptional" : true
-                  }
-                ],
-                "type" : "Extension/HubsExtension/PartType/MonitorChartPart",
-                "settings" : {
-                  "content" : {
-                    "options" : {
-                      "chart" : {
-                        "metrics" : [
-                          {
-                            "resourceMetadata" : {
-                              "id" : "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                            },
-                            "name" : "Percentage CPU",
-                            "aggregationType" : 4,
-                            "namespace" : "microsoft.compute/virtualmachines",
-                            "metricVisualization" : {
-                              "displayName" : "Percentage CPU",
-                              "resourceDisplayName" : "${azurerm_linux_virtual_machine.az_lvm.name}"
-                            }
-                          }
-                        ],
-                        "title" : "CPU Utilization",
-                        "titleKind" : 2,
-                        "visualization" : {
-                          "chartType" : 2,
-                          "legendVisualization" : {
-                            "isVisible" : true,
-                            "position" : 2,
-                            "hideHoverCard" : false,
-                            "hideLabelNames" : true
-                          },
-                          "axisVisualization" : {
-                            "x" : {
-                              "isVisible" : true,
-                              "axisType" : 2
-                            },
-                            "y" : {
-                              "isVisible" : true,
-                              "axisType" : 1
-                            }
-                          },
-                          "disablePinning" : true
-                        }
-                      }
-                    }
-                  }
+    lenses = [
+      {
+        order = 0
+        parts = [
+          {
+            position = {
+              x       = 0
+              y       = 0
+              colSpan = 11
+              rowSpan = 5
+            }
+            metadata = {
+              inputs = [
+                {
+                  name       = "options"
+                  isOptional = true
+                },
+                {
+                  name       = "sharedTimeRange"
+                  isOptional = true
                 }
-              }
-            },
-            {
-              "position" : {
-                "x" : 0,
-                "y" : 5,
-                "colSpan" : 11,
-                "rowSpan" : 5
-              },
-              "metadata" : {
-                "inputs" : [
-                  {
-                    "name" : "options",
-                    "isOptional" : true
-                  },
-                  {
-                    "name" : "sharedTimeRange",
-                    "isOptional" : true
-                  }
-                ],
-                "type" : "Extension/HubsExtension/PartType/MonitorChartPart",
-                "settings" : {
-                  "content" : {
-                    "options" : {
-                      "chart" : {
-                        "metrics" : [
-                          {
-                            "resourceMetadata" : {
-                              "id" : "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
-                            },
-                            "name" : "Available Memory Bytes",
-                            "aggregationType" : 4,
-                            "namespace" : "microsoft.compute/virtualmachines",
-                            "metricVisualization" : {
-                              "displayName" : "Available Memory Bytes (Preview)",
-                              "resourceDisplayName" : "${azurerm_linux_virtual_machine.az_lvm.name}"
-                            }
+              ]
+              type = "Extension/HubsExtension/PartType/MonitorChartPart"
+              settings = {
+                content = {
+                  options = {
+                    chart = {
+                      metrics = [
+                        {
+                          resourceMetadata = {
+                            id = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
                           }
-                        ],
-                        "title" : "Memory Utilization",
-                        "titleKind" : 2,
-                        "visualization" : {
-                          "chartType" : 2,
-                          "legendVisualization" : {
-                            "isVisible" : true,
-                            "position" : 2,
-                            "hideHoverCard" : false,
-                            "hideLabelNames" : true
-                          },
-                          "axisVisualization" : {
-                            "x" : {
-                              "isVisible" : true,
-                              "axisType" : 2
-                            },
-                            "y" : {
-                              "isVisible" : true,
-                              "axisType" : 1
-                            }
-                          },
-                          "disablePinning" : true
+                          name              = "Percentage CPU"
+                          aggregationType   = 4
+                          namespace         = "microsoft.compute/virtualmachines"
+                          metricVisualization = {
+                            displayName        = "Percentage CPU"
+                            resourceDisplayName = "${azurerm_linux_virtual_machine.az_lvm.name}"
+                          }
                         }
+                      ]
+                      title         = "CPU Utilization"
+                      titleKind     = 2
+                      visualization = {
+                        chartType = 2
+                        legendVisualization = {
+                          isVisible      = true
+                          position       = 2
+                          hideHoverCard  = false
+                          hideLabelNames = true
+                        }
+                        axisVisualization = {
+                          x = {
+                            isVisible = true
+                            axisType  = 2
+                          }
+                          y = {
+                            isVisible = true
+                            axisType  = 1
+                          }
+                        }
+                        disablePinning = true
                       }
                     }
                   }
                 }
               }
             }
-          ]
+          },
+          {
+            position = {
+              x       = 0
+              y       = 5
+              colSpan = 11
+              rowSpan = 5
+            }
+            metadata = {
+              inputs = [
+                {
+                  name       = "options"
+                  isOptional = true
+                },
+                {
+                  name       = "sharedTimeRange"
+                  isOptional = true
+                }
+              ]
+              type = "Extension/HubsExtension/PartType/MonitorChartPart"
+              settings = {
+                content = {
+                  options = {
+                    chart = {
+                      metrics = [
+                        {
+                          resourceMetadata = {
+                            id = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
+                          }
+                          name              = "Available Memory Bytes"
+                          aggregationType   = 4
+                          namespace         = "microsoft.compute/virtualmachines"
+                          metricVisualization = {
+                            displayName        = "Available Memory Bytes (Preview)"
+                            resourceDisplayName = "${azurerm_linux_virtual_machine.az_lvm.name}"
+                          }
+                        }
+                      ]
+                      title         = "Memory Utilization"
+                      titleKind     = 2
+                      visualization = {
+                        chartType = 2
+                        legendVisualization = {
+                          isVisible      = true
+                          position       = 2
+                          hideHoverCard  = false
+                          hideLabelNames = true
+                        }
+                        axisVisualization = {
+                          x = {
+                            isVisible = true
+                            axisType  = 2
+                          }
+                          y = {
+                            isVisible = true
+                            axisType  = 1
+                          }
+                        }
+                        disablePinning = true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+    metadata = {
+      model = {
+        timeRange = {
+          value = {
+            relative = {
+              duration = 24
+              timeUnit = 1
+            }
+          }
+          type = "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
         }
-      ],
-      "metadata" : {
-        "model" : {
-          "timeRange" : {
-            "value" : {
-              "relative" : {
-                "duration" : 24,
-                "timeUnit" : 1
+        filterLocale = {
+          value = "ja-jp"
+        }
+        filters = {
+          value = {
+            MsPortalFx_TimeRange = {
+              model = {
+                format      = "utc"
+                granularity = "auto"
+                relative    = "24h"
               }
-            },
-            "type" : "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
-          },
-          "filterLocale" : {
-            "value" : "ja-jp"
-          },
-          "filters" : {
-            "value" : {
-              "MsPortalFx_TimeRange" : {
-                "model" : {
-                  "format" : "utc",
-                  "granularity" : "auto",
-                  "relative" : "24h"
-                },
-                "displayCache" : {
-                  "name" : "UTC 時間",
-                  "value" : "過去 24 時間"
-                },
-                "filteredPartIds" : [
-                  "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d16e",
-                  "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d24b"
-                ]
+              displayCache = {
+                name  = "UTC 時間"
+                value = "過去 24 時間"
               }
+              filteredPartIds = [
+                "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d16e",
+                "StartboardPart-MonitorChartPart-50a12168-c114-4b5d-b5a6-37307862d24b"
+              ]
             }
           }
         }
       }
-    },
-    "name" : "dashboard-001",
-    "type" : "Microsoft.Portal/dashboards",
-    "location" : "INSERT LOCATION",
-    "tags" : {
-      "hidden-title" : "dashboard-001"
-    },
-    "apiVersion" : "2022-12-01-preview"
+    }
   })
 }
 
