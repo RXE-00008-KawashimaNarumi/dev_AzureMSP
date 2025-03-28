@@ -171,7 +171,6 @@ resource "azurerm_monitor_data_collection_rule_association" "az_mdcra" {
   data_collection_rule_id = azurerm_monitor_data_collection_rule.az_mdcr.id
 }
 
-# Create Dashboard (CPU&Memory&Disk)
 resource "azurerm_portal_dashboard" "az_pd" {
   name                = "dashboard-001"
   resource_group_name = azurerm_resource_group.az_rg.name
@@ -182,8 +181,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
   }
 
   dashboard_properties = jsonencode({
-    lenses = [
-      {
+    lenses = {
+      "0" = {
         order = 0
         parts = [
           {
@@ -223,8 +222,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           }
                         }
                       ]
-                      title     = "CPU Utilization"
-                      titleKind = 2
+                      title         = "CPU Utilization"
+                      titleKind     = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
@@ -288,8 +287,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           }
                         }
                       ]
-                      title     = "Memory Utilization"
-                      titleKind = 2
+                      title         = "Memory Utilization"
+                      titleKind     = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
@@ -318,7 +317,7 @@ resource "azurerm_portal_dashboard" "az_pd" {
           }
         ]
       }
-    ]
+    }
     metadata = {
       model = {
         timeRange = {
