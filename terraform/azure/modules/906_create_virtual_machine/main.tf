@@ -154,7 +154,7 @@ resource "azurerm_monitor_data_collection_rule" "az_mdcr" {
     azure_monitor_metrics {
       name = "destination1"
     }
-}
+  }
 
   data_flow {
     streams      = ["Microsoft-InsightsMetrics"]
@@ -214,17 +214,17 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           resourceMetadata = {
                             id = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
                           }
-                          name              = "Percentage CPU"
-                          aggregationType   = 4
-                          namespace         = "microsoft.compute/virtualmachines"
+                          name            = "Percentage CPU"
+                          aggregationType = 4
+                          namespace       = "microsoft.compute/virtualmachines"
                           metricVisualization = {
-                            displayName        = "Percentage CPU"
+                            displayName         = "Percentage CPU"
                             resourceDisplayName = "${azurerm_linux_virtual_machine.az_lvm.name}"
                           }
                         }
                       ]
-                      title         = "CPU Utilization"
-                      titleKind     = 2
+                      title     = "CPU Utilization"
+                      titleKind = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
@@ -279,17 +279,17 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           resourceMetadata = {
                             id = "/subscriptions/${data.azurerm_client_config.az_cc.subscription_id}/resourceGroups/${azurerm_resource_group.az_rg.name}/providers/Microsoft.Compute/virtualMachines/${azurerm_linux_virtual_machine.az_lvm.name}"
                           }
-                          name              = "Available Memory Bytes"
-                          aggregationType   = 4
-                          namespace         = "microsoft.compute/virtualmachines"
+                          name            = "Available Memory Bytes"
+                          aggregationType = 4
+                          namespace       = "microsoft.compute/virtualmachines"
                           metricVisualization = {
-                            displayName        = "Available Memory Bytes (Preview)"
+                            displayName         = "Available Memory Bytes (Preview)"
                             resourceDisplayName = "${azurerm_linux_virtual_machine.az_lvm.name}"
                           }
                         }
                       ]
-                      title         = "Memory Utilization"
-                      titleKind     = 2
+                      title     = "Memory Utilization"
+                      titleKind = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
