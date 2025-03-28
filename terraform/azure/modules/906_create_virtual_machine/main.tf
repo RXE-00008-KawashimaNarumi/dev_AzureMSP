@@ -222,8 +222,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           }
                         }
                       ]
-                      title         = "CPU Utilization"
-                      titleKind     = 2
+                      title     = "CPU Utilization"
+                      titleKind = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
@@ -287,8 +287,8 @@ resource "azurerm_portal_dashboard" "az_pd" {
                           }
                         }
                       ]
-                      title         = "Memory Utilization"
-                      titleKind     = 2
+                      title     = "Memory Utilization"
+                      titleKind = 2
                       visualization = {
                         chartType = 2
                         legendVisualization = {
