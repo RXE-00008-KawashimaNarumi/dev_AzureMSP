@@ -395,3 +395,4 @@ resource "azurerm_monitor_activity_log_alert" "az_mala" {
 
   tags = var.common_tags
 }
+
